@@ -19,10 +19,12 @@ export const SqliteDataSource = new DataSource({
 
 export const createSqliteConnection = async () => {
   try {
+    console.log(`Check sqliteDbPath: ${sqliteDbPath}`);
+
     if (!db) {
       db = new sql.Database(sqliteDbPath);
     }
-    
+
     await SqliteDataSource.initialize();
     await SqliteDataSource.runMigrations();
 
