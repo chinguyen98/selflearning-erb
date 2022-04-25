@@ -17,6 +17,9 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "strictPropertyInitialization": false,
+    "emitDecoratorMetadata": true,
     "resolveJsonModule": true,
     "allowJs": true,
     "outDir": "release/app/dist"

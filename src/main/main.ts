@@ -1,12 +1,13 @@
 /* eslint global-require: off, no-console: off, promise/always-return: off, import/newline-after-import: "off" */
-
 import { app, BrowserWindow, shell } from 'electron';
 import log from 'electron-log';
 import { autoUpdater } from 'electron-updater';
 import path from 'path';
-import { resolveHtmlPath } from './util';
+import 'reflect-metadata';
 import { APP_BRIDGE_API_KEY } from '../bridge/app.bridge';
 import rootListener from './listeners/root.listener';
+import { createSqliteConnection } from './sqlite';
+import { resolveHtmlPath } from './util';
 export default class AppUpdater {
   constructor() {
     log.transports.file.level = 'info';
@@ -112,5 +113,8 @@ app
     app.on('activate', () => {
       if (mainWindow === null) createWindow();
     });
+  })
+  .then(() => {
+    createSqliteConnection();
   })
   .catch(console.log);

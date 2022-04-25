@@ -128,10 +128,11 @@
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.0.0",
     "@types/jest": "^27.4.1",
-    "@types/node": "17.0.23",
+    "@types/node": "^17.0.23",
     "@types/react": "^17.0.43",
     "@types/react-dom": "^17.0.14",
     "@types/react-test-renderer": "^17.0.1",
+    "@types/sqlite3": "^3.1.8",
     "@types/terser-webpack-plugin": "^5.0.4",
     "@types/webpack-bundle-analyzer": "^4.4.1",
     "@types/webpack-env": "^1.16.3",
@@ -198,7 +199,10 @@
     "history": "^5.3.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "react-router-dom": "^6.3.0"
+    "react-router-dom": "^6.3.0",
+    "reflect-metadata": "^0.1.13",
+    "sqlite3": "^5.0.5",
+    "typeorm": "^0.3.6"
   },
   "devEngines": {
     "node": ">=14.x",
