@@ -11,6 +11,7 @@ import baseConfig from './webpack.config.base';
 import webpackPaths from './webpack.paths';
 import checkNodeEnv from '../scripts/check-node-env';
 import deleteSourceMaps from '../scripts/delete-source-maps';
+import glob from 'glob';
 
 checkNodeEnv('production');
 deleteSourceMaps();
@@ -32,6 +33,14 @@ const configuration: webpack.Configuration = {
   entry: {
     main: path.join(webpackPaths.srcMainPath, 'main.ts'),
     preload: path.join(webpackPaths.srcMainPath, 'preload.ts'),
+    ...glob
+      .sync(
+        path.join(webpackPaths.srcMainPath, 'sqlite', 'migrations', '**.ts')
+      )
+      .reduce(function (obj, el) {
+        obj[path.parse(el).name] = el;
+        return obj;
+      }, {}),
   },
 
   output: {
