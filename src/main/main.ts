@@ -43,8 +43,6 @@ const installExtensions = async () => {
 };
 
 const createWindow = async () => {
-  console.log('APP_BRIDGE_API_KEY', APP_BRIDGE_API_KEY);
-
   if (isDebug) {
     await installExtensions();
   }
