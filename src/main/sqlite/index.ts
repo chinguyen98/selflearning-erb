@@ -2,32 +2,32 @@ import { app } from 'electron';
 import path from 'path';
 import { DataSource } from 'typeorm';
 import Photo from './entity/Photo';
+import sqlite3 from 'sqlite3';
+const sql = sqlite3.verbose();
 
-const sqliteDbPath: string = path.join(app.getPath('userData'), 'db.sqlite');
+let db: any = null;
+
+const sqliteDbPath: string = path.join(app.getPath('userData'), 'db2.sqlite');
 
 export const SqliteDataSource = new DataSource({
   type: 'sqlite',
   database: sqliteDbPath,
   entities: [Photo],
-  migrations: [],
+  migrations: ['src/main/sqlite/migrations/*{.ts,.js}'],
   logging: true,
 });
 
 export const createSqliteConnection = async () => {
   try {
+    if (!db) {
+      db = new sql.Database(sqliteDbPath);
+    }
+    
     await SqliteDataSource.initialize();
+    await SqliteDataSource.runMigrations();
 
     /* Init successfully */
     console.log('Init sqlite successfully');
-
-    const photo = new Photo();
-    photo.name = 'Me and Bears';
-    photo.description = 'I am near polar bears';
-    photo.filename = 'photo-with-bears.jpg';
-    photo.views = 1;
-    photo.isPublished = true;
-
-    await SqliteDataSource.manager.save(photo);
   } catch (error) {
     console.error('createSqliteConnection error', error);
   }

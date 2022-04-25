@@ -1,6 +1,8 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
+@Entity({
+  name: 'photos',
+})
 class Photo {
   @PrimaryGeneratedColumn()
   id: number;
@@ -9,18 +11,6 @@ class Photo {
     length: 100,
   })
   name: string;
-
-  @Column('text')
-  description: string;
-
-  @Column()
-  filename: string;
-
-  @Column('double')
-  views: number;
-
-  @Column()
-  isPublished: boolean;
 }
 
 export default Photo;
