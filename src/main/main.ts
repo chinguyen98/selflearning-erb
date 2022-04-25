@@ -1,11 +1,12 @@
-/* eslint global-require: off, no-console: off, promise/always-return: off */
+/* eslint global-require: off, no-console: off, promise/always-return: off, import/newline-after-import: "off" */
 
 import { app, BrowserWindow, shell } from 'electron';
 import log from 'electron-log';
 import { autoUpdater } from 'electron-updater';
 import path from 'path';
 import { resolveHtmlPath } from './util';
-
+import { APP_BRIDGE_API_KEY } from '../bridge/app.bridge';
+import rootListener from './listeners/root.listener';
 export default class AppUpdater {
   constructor() {
     log.transports.file.level = 'info';
@@ -41,6 +42,8 @@ const installExtensions = async () => {
 };
 
 const createWindow = async () => {
+  console.log('APP_BRIDGE_API_KEY', APP_BRIDGE_API_KEY);
+
   if (isDebug) {
     await installExtensions();
   }
@@ -94,6 +97,7 @@ const createWindow = async () => {
 /**
  * Event listeners...
  */
+rootListener();
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {

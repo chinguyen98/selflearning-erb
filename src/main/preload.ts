@@ -1,3 +1,1 @@
-import { contextBridge } from 'electron';
-
-contextBridge.exposeInMainWorld('electron', {});
+import './preloads/app.preload';
