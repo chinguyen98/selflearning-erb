@@ -27,11 +27,10 @@ export const SqliteDataSource = new DataSource({
   // ],
   migrations: [
     app.isPackaged
-      ? path.join(process.resourcesPath, 'migrations/**/*.js')
+      ? path.join(process.resourcesPath, '/release/app/dist/main/*.js')
       : path.join(__dirname, '/migrations/**/*.ts'),
   ],
   logging: true,
-  migrationsRun: true,
 });
 
 export const createSqliteConnection = async () => {
@@ -46,6 +45,8 @@ export const createSqliteConnection = async () => {
     }
 
     await SqliteDataSource.initialize();
+
+    await SqliteDataSource.runMigrations();
 
     /* Init successfully */
     console.log('Init sqlite successfully');

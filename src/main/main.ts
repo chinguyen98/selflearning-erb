@@ -16,8 +16,6 @@ export default class AppUpdater {
   }
 }
 
-createSqliteConnection();
-
 let mainWindow: BrowserWindow | null = null;
 
 if (process.env.NODE_ENV === 'production') {
@@ -115,5 +113,8 @@ app
     app.on('activate', () => {
       if (mainWindow === null) createWindow();
     });
+  })
+  .then(() => {
+    createSqliteConnection();
   })
   .catch(console.log);
