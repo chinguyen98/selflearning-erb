@@ -38,7 +38,8 @@
     "files": [
       "dist",
       "node_modules",
-      "package.json"
+      "package.json",
+      "../src/main/sqlite/migrations/**"
     ],
     "afterSign": ".erb/scripts/notarize.js",
     "mac": {
@@ -86,7 +87,8 @@
       "output": "release/build"
     },
     "extraResources": [
-      "./assets/**"
+      "./assets/**",
+      "./src/main/sqlite/migrations/**"
     ],
     "publish": {
       "provider": "github",

@@ -7,13 +7,18 @@ const sql = sqlite3.verbose();
 
 let db: any = null;
 
-const sqliteDbPath: string = path.join(app.getPath('userData'), 'db2.sqlite');
+const isDev = process.env.NODE_ENV === 'development';
+
+const sqliteDbPath: string = path.join(
+  app.getPath('userData'),
+  `db${isDev ? 'Dev' : 'Prod'}.sqlite`
+);
 
 export const SqliteDataSource = new DataSource({
   type: 'sqlite',
   database: sqliteDbPath,
   entities: [Photo],
-  migrations: ['src/main/sqlite/migrations/*{.ts,.js}'],
+  migrations: [__dirname + '/migrations/**/*.ts'],
   logging: true,
 });
 
