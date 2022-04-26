@@ -8,10 +8,10 @@ const App = (): JSX.Element => {
   };
 
   const save = async () => {
-    const message = await window.apiPhoto.addPhoto({
+    const photo = await window.apiPhoto.addPhoto({
       name,
     });
-    console.log({ message });
+    console.log(photo);
   };
 
   return (

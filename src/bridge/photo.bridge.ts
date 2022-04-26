@@ -4,11 +4,13 @@ export const PHOTO_BRIDGE_CHANNELS = {
   ADD: 'photo:add',
 };
 
-type PHOTO_DTO = {
+export type PHOTO_DTO = {
+  id: number;
   name: string;
 };
 
 export type AddPhotoParamsType = Pick<PHOTO_DTO, 'name'>;
+export type AddPhotoReturnType = Promise<PHOTO_DTO | null>;
 export interface IPhotoBridge {
-  addPhoto: (data: AddPhotoParamsType) => Promise<string>;
+  addPhoto: (data: AddPhotoParamsType) => Promise<AddPhotoReturnType>;
 }
