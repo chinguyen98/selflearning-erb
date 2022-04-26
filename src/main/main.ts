@@ -5,6 +5,7 @@ import { autoUpdater } from 'electron-updater';
 import path from 'path';
 import 'reflect-metadata';
 import rootListener from './listeners/root.listener';
+import { createSqliteConnection } from './sqlite';
 import { resolveHtmlPath } from './util';
 export default class AppUpdater {
   constructor() {
@@ -111,6 +112,6 @@ app
     });
   })
   .then(() => {
-    // createSqliteConnection();
+    createSqliteConnection();
   })
   .catch(console.log);
