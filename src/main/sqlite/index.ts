@@ -3,9 +3,6 @@ import path from 'path';
 import { DataSource } from 'typeorm';
 import Photo from './entity/Photo';
 import sqlite3 from 'sqlite3';
-import { CreatePhotosTable1650863663485 } from './migrations/1650863663485-CreatePhotosTable';
-import { AddColumnDateStringToPhotoTable1650868011266 } from './migrations/1650868011266-AddColumnDateStringToPhotoTable';
-const sql = sqlite3.verbose();
 
 let db: sqlite3.Database | null = null;
 
@@ -20,16 +17,11 @@ export const SqliteDataSource = new DataSource({
   type: 'sqlite',
   database: sqliteDbPath,
   entities: [Photo],
-  // migrations: [isDev ? __dirname + '/migrations/**/*.ts' : './*Table.js'],
   // migrations: [
-  //   CreatePhotosTable1650863663485,
-  //   AddColumnDateStringToPhotoTable1650868011266,
+  //   app.isPackaged
+  //     ? path.join(process.resourcesPath, '/migrations/**/*.js')
+  //     : path.join(__dirname, '/migrations/**/*.ts'),
   // ],
-  migrations: [
-    app.isPackaged
-      ? path.join(process.resourcesPath, '/release/app/dist/main/*.js')
-      : path.join(__dirname, '/migrations/**/*.ts'),
-  ],
   logging: true,
 });
 
@@ -38,15 +30,10 @@ export const createSqliteConnection = async () => {
     console.log(`Check sqliteDbPath: ${sqliteDbPath}`);
 
     if (!db) {
-      db = new sql.Database(sqliteDbPath);
-      // db.all(
-      //   'CREATE TABLE IF NOT EXISTS photos (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL)'
-      // );
+      db = new sqlite3.Database(sqliteDbPath);
     }
 
     await SqliteDataSource.initialize();
-
-    await SqliteDataSource.runMigrations();
 
     /* Init successfully */
     console.log('Init sqlite successfully');

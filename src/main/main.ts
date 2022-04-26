@@ -4,9 +4,7 @@ import log from 'electron-log';
 import { autoUpdater } from 'electron-updater';
 import path from 'path';
 import 'reflect-metadata';
-import { APP_BRIDGE_API_KEY } from '../bridge/app.bridge';
 import rootListener from './listeners/root.listener';
-import { createSqliteConnection } from './sqlite';
 import { resolveHtmlPath } from './util';
 export default class AppUpdater {
   constructor() {
@@ -113,6 +111,6 @@ app
     });
   })
   .then(() => {
-    createSqliteConnection();
+    // createSqliteConnection();
   })
   .catch(console.log);

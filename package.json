@@ -87,7 +87,11 @@
     },
     "extraResources": [
       "./assets/**",
-      "./release/app/dist/main/**/*Table.js"
+      {
+        "from": "./release/app/dist/main/",
+        "to": "migrations",
+        "filter": "*Table.js"
+      }
     ],
     "publish": {
       "provider": "github",
